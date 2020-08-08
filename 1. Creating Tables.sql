@@ -14,8 +14,8 @@ go
 
 CREATE TABLE [dbo].[Student](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[FirstName] [nvarchar](50) NOT NULL,
-	[LastName] [nvarchar](50) NOT NULL,
+	[FirstName] [nvarchar](569) NOT NULL,
+	[LastName] [nvarchar](569) NOT NULL,
 	[DateOfBirth] [date] NULL,
 	[AcademicRank] [nvarchar](50) NOT NULL,
 	[HireDate] [date] NOT NULL,
@@ -28,8 +28,8 @@ GO
 
 CREATE TABLE [dbo].[Teacher](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[FirstName] [nvarchar](50) NOT NULL,
-	[LastName] [nvarchar](50) NOT NULL,
+	[FirstName] [nvarchar](88) NOT NULL,
+	[LastName] [nvarchar](88) NOT NULL,
 	[DateOfBirth] [date] NULL,
 	[AcademicRank] [nvarchar](50) NOT NULL,
 	[HireDate] [date] NULL,
@@ -98,5 +98,10 @@ CREATE TABLE [dbo].[AchievementType]
 GO
 
 
-
+exec sp_help Student;
+exec sp_help Teacher;
+exec sp_help GradeDetails;
+exec sp_help Course;
+exec sp_help Grade;
+exec sp_help AchievementType;
 
