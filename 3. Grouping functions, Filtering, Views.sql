@@ -12,7 +12,7 @@ GO
 --Calculate the count of all grades per Teacher in the system for first 100 Students (ID < 100)
 select TeacherID, Count(*) as 'Count'
 from dbo.Grade 
-where ID < 100 
+where StudentID < 100 
 group by TeacherID
 GO
 
@@ -32,7 +32,7 @@ GO
 --Calculate the count of all grades per Teacher in the system for first 100 Students (ID < 100) and filter teachers with more than 50 Grade count
 select TeacherID, COUNT(*) as 'Count'
 from dbo.Grade
-where TeacherID < 100 
+where StudentID < 100 
 group by TeacherID
 having COUNT(Grade) > 50
 GO
@@ -54,6 +54,8 @@ having MAX(Grade) = AVG(Grade)
 GO
 
 --Create new view (vv_StudentGrades) that will List all StudentIds and count of Grades per student
+drop view if exists vv_StudentGrades
+GO
 create view vv_StudentGrades
 as
 select StudentID, Count(*) as TotalPrice
@@ -64,7 +66,7 @@ GO
 --Change the view to show Student First and Last Names instead of StudentID
 alter view vv_StudentGrades
 as
-select StudentID, s.FirstName, s.LastName
+select COUNT(StudentID) as 'Count', s.FirstName, s.LastName
 from dbo.[Grade] g
 inner join Student s
 on s.ID = g.StudentID
@@ -72,29 +74,36 @@ group by StudentID, s.FirstName, s.LastName
 GO
 
 --List all rows from view ordered by biggest Grade Count
-select StudentID
+select Count
 from vv_StudentGrades
-group by StudentID
-order by StudentID desc
+group by Count
+order by Count desc
 GO
 
+
 --Create new view (vv_StudentGradeDetails) that will List all Students (FirstName and LastName) and Count the courses he passed through the exam(Ispit)
+drop view if exists vv_StudentGradeDetails
+GO
 create view vv_StudentGradeDetails
-as
-select s.FirstName + ' ' + s.LastName as 'Student Name', COUNT(at.Name) as 'Total Passed Exams'
+as 
+select s.FirstName + ' ' + s.LastName as 'Student Name', COUNT(g.CourseID) as 'Course Count'
 from Grade as g
 inner join Student s
-on s.ID =g.StudentID
-inner join AchievementType at
-on at.ID = g.CourseID
+on s.ID = g.StudentID
+inner join GradeDetails gd
+on gd.GradeID = g.ID
+inner join AchievementType a
+on a.ID = gd.AchievementTypeID
+where a.Name = 'Ispit'
 group by s.FirstName, s.LastName
 GO
 
 
 ---------------------------------
 
-select *
+select * 
 from vv_StudentGradeDetails
+order by [Course Count] desc, [Student Name] asc
 
 
 
