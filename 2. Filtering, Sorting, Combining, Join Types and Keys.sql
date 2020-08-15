@@ -1,12 +1,12 @@
 --Find all Students with FirstName = Antonio
 select *
 from Student
-where FirstName like 'Antonio'
+where FirstName = 'Antonio'
 
 --Find all Students with DateOfBirth greater than ‘01.01.1999’
 select *
 from Student
-where DateOfBirth > '01.01.1999'
+where DateOfBirth = '01.01.1999'
 
 --Find all Male students
 select *
@@ -43,6 +43,7 @@ order by FirstName
 --Find all Male students ordered by EnrolledDate, starting from the last enrolled
 select *
 from Student
+where Gender = 'M'
 order by EnrolledDate desc
 
 --List all Teacher First Names and Student First Names in single result set with duplicates
