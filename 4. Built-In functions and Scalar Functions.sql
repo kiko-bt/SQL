@@ -28,12 +28,15 @@ GO
 --Fill the temp table with all Male students having First Name starting with ‘A’
 --Retrieve the students from the table which last name is with 7 characters
 
+drop table if exists #StudentList
+GO
+
 CREATE TABLE #StudentList 
 (LastName nvarchar(100), EnrolledDate date)
 INSERT into #StudentList
 select LastName, EnrolledDate
 from Student
-where FirstName like 'A%'
+where FirstName like 'A%'  and Gender = 'M'
 
 select *
 from #StudentList

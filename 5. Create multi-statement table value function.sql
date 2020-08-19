@@ -17,8 +17,6 @@ begin
 	from Grade as g
 	inner join Student s
 	on s.ID = g.StudentID
-	inner join GradeDetails gd
-	on gd.GradeID = g.ID
 	where g.CourseID = @CourseID and g.TeacherID = @TeacherID
 	group by s.FirstName, s.LastName, g.Grade, g.CreatedDate
 	order by Grade
